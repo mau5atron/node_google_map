@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Google Maps Playground</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <!-- <script type="module">
+        import { doAlert } from "/util/maps.js"
+        window.addEventListener("click", event => {
+            switch(event.target.id){
+                case 'btnClicked':
+                    btnClick();
+                    break;
+            }
+        });
+
+        function btnClick(){
+            doAlert();
+        }
+    </script> -->
+    <script type="module">
+        import * as mapLib from "/util/maps.js";
+        //mapLib.doAlert();
+        window.onload = () => {
+            window.initMap = mapLib.initMap();
+        }
+    </script>
+</head>
+<body>
+    <h1>Map Index: </h1>
+    <!-- iframe to prevent redirect, just post to server action path -->
+    <iframe name="no_redirect_frame" id="prev_redir" style="display: none;"></iframe>
+    <form action="/store_location" method="POST" target="no_redirect_frame">
+        <button type="submit">Post Store ID</button>
+        <input type="hidden" name="store_loc_id" value="">
+        <!-- assign value via js -->
+    </form>
+    <hr>
+    <div id="map"></div>
+    <!-- <button type="button" id="btnClicked" value="run external js">alert</button> -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=envAPIKey%>&callback=window.initMap"></script>
+</body>
+</html>
